@@ -1,6 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
+struct student{
+    int id;
+    char name[50];
+    float marks;
+};
 int main(){
+    struct student s;
     while(1){
         int choice;
         printf("......MENU......\n");
