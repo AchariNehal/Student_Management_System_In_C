@@ -37,6 +37,17 @@ int main(){
                     fclose(fp);
                     break;
             case 2:printf("Delete Student selected\n");
+                    fp=fopen("students.txt","r");
+                      if(fp==NULL){
+                        printf("Error opening file\n");
+                        break;
+                    }
+                    
+                    char ch;
+                    while((ch=fgetc(fp))!=EOF){
+                    printf("%c",ch);
+                    }
+                    fclose(fp);
                     break;
             case 3:exit(0);
             default: printf("Invalid choice.Please try again!!\n");
