@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 struct student{
     int id;
     char name[50];
@@ -8,6 +9,7 @@ struct student{
 int main(){
     struct student s;
     FILE*fp;
+    FILE*fp2;
     while(1){
         int choice;
         printf("......MENU......\n");
@@ -38,14 +40,14 @@ int main(){
                     break;
             case 2:printf("Delete Student selected\n");
                     fp=fopen("students.txt","r");
+                
                       if(fp==NULL){
                         printf("Error opening file\n");
                         break;
                     }
-                    
-                    char ch;
-                    while((ch=fgetc(fp))!=EOF){
-                    printf("%c",ch);
+                    char line[100];
+                    while(fgets(line,sizeof(line),fp)){
+                        printf("%s",line);
                     }
                     fclose(fp);
                     break;
