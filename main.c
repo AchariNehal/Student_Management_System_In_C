@@ -15,7 +15,9 @@ int main(){
         printf("......MENU......\n");
         printf("1.Add Students \n");
         printf("2.Delete Students\n");
-        printf("3.Exit\n");
+        printf("3.View Students\n");
+        printf("4.Search a student\n");
+        printf("5.Exit\n");
         printf("Enter your choice:");
         scanf("%d",&choice);
         switch(choice){
@@ -52,7 +54,7 @@ int main(){
                     printf("Enter id to be deleted:");
                     scanf("%d",&delete_id);
                     while(fgets(line,sizeof(line),fp1)){
-                        if(sscanf(line, "ID: %d", &current_id) == 1)
+                        if(sscanf(line, "ID: %d", &current_id) == 1){
                             if(current_id == delete_id){
                                 for(int i=0;i<3;i++)
                                     fgets(line,sizeof(line),fp1);
@@ -65,19 +67,75 @@ int main(){
                             }
                         }
                     }
-                    if(!found)
+                }
+                    if(!found){
                         printf("ID not found\n");
-                    else
+                    }else{
                         printf("Student deleted successfully\n");
+                    }
                     fclose(fp1);
                     fclose(fp2);
                     remove("students.txt");
                    rename("temp.txt", "students.txt");
                     break;
-            case 3:exit(0);
+            case 3:printf("-----STUDENTS_VIEWED-----\n");
+                    printf("-------------------------\n");
+                    fp1=fopen("students.txt","r");
+                    if(fp1==NULL){
+                        printf("File is not opened");
+                        break;
+                    }
+                    char ch[100];
+                    int empty = 1;
+                    while(fgets(ch,sizeof(ch),fp1)){
+                        printf("%s",ch);
+                        empty = 0;
+                    }
+                    if(empty)
+                        printf("No records to display\n");
+                    fclose(fp1);
+                    break;
+            case 4:printf("Search Student selected\n");
+                    fp1=fopen("students.txt","r");
+                      if(fp1==NULL ){
+                        printf("Error opening file\n");
+                        break;
+                    }
+                     char sen[100];
+                    int present_id;
+                    int search_id;
+                    int start=0;
+                    printf("Enter id to be search:");
+                    scanf("%d",&search_id);
+                    printf("-----STUDENTS_FOUND-----\n");
+                    while(fgets(sen,sizeof(sen),fp1)){
+                        if(sscanf(sen, "ID: %d", &present_id) == 1)
+                            if(present_id == search_id){
+                                printf("%s",sen);
+                                for(int i=0;i<3;i++){
+                                fgets(sen,sizeof(sen),fp1);
+                                    printf("%s",sen);
+                                }
+                                start=1;
+                                break;
+                        }
+                        }
+                    if(!start){
+                        printf("ID not found\n");
+                    }
+                        fclose(fp1);
+                        break;
+                  
+            case 5:exit(0);
             default: printf("Invalid choice.Please try again!!\n");
         }
 
     }
     return 0;
 }
+
+
+
+
+
+
